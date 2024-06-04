@@ -17,8 +17,14 @@ spec:
       containers:
       - name: redis
         image: redis-example-masonic
-        imagePullPolicy: Never
-
+        imagePullPolicy: Never # Required for local deployment (not in Docker Hub)
+        volumeMounts:
+        - mountPath: /data
+          name: redis-storage
+      volumes:
+        - name: redis-storage
+          persistentVolumeClaim:
+            claimName: redis-pvc
 ---
 apiVersion: v1
 kind: Service
