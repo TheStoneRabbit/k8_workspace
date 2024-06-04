@@ -16,6 +16,7 @@ spec:
       containers:
       - name: web
         image: k8-masonic-db
+        imagePullPolicy: Never # Required for local deployment (not in Docker Hub)
         ports:
         - containerPort: 5001
         env:

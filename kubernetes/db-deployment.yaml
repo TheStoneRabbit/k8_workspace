@@ -17,6 +17,8 @@ spec:
       containers:
       - name: redis
         image: redis-example-masonic
+        imagePullPolicy: Never
+
 ---
 apiVersion: v1
 kind: Service
