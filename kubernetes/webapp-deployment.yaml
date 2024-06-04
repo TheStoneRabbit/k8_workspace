@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-deployment
+  namespace: masonic-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: k8-masonic-db
+        ports:
+        - containerPort: 5001
+        env:
+        - name: REDIS_HOST
+          value: redis-service.masonic-app.svc.cluster.local
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  namespace: masonic-app
+spec:
+  selector:
+    app: web
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 5001
+  type: LoadBalancer

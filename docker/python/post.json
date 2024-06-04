@@ -1,0 +1,10 @@
+{
+    "key": "mason:1",
+    "values": {
+        "date_of_birth": "07/18/2000",
+        "first_name": "Mason",
+        "middle_name": "Wynn",
+        "last_name": "Lapine",
+        "gender": "male"
+    }
+}

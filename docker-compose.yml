@@ -3,7 +3,7 @@ services:
   redis:
     image: redis-example-masonic
     container_name: masonic-redis-db
-    hostname: my_redis
+    hostname: my-redis
     networks:
       - my_network
 

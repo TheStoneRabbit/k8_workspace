@@ -1,6 +1,7 @@
 import os
 import redis
 from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
@@ -32,11 +33,21 @@ def fetch_records(start=0, count=100):
     records = r.mget(keys)
     return {key.decode('utf-8'): value.decode('utf-8') for key, value in zip(keys, records)}
 
+@app.route("/receive-data", methods=['POST'])
+def receive_data():
+    data = request.get_json()
+    try:
+        r.hmset(data["key"], data["values"])
+        print(f"Received data with key: {data['key']}", flush=True)
+        return "Data received and loaded successfully"
+    except:
+        return "Error loading data"
+
 @app.route("/")
 def root_page():
     return "Welcome to the root of the masonic example"
 
-@app.route("/getdata/<param>", methods=['GET'])
+@app.route("/get-data/<param>", methods=['GET'])
 def get_data(param: str):
     param = param.replace("-", ":")
     print(f"Getting value for {param}", flush=True)
