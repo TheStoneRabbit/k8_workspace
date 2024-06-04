@@ -2,8 +2,7 @@ FROM redis:latest
 
 RUN mkdir /db
 WORKDIR /db
-ADD . /db/
-RUN redis-cli -h localhost -p 6379 < ./import_movies.redis
-RUN redis-cli -h localhost -p 6379 < ./import_actors.redis
+COPY ./* /db/
+RUN chmod +x redis_populate.sh
+CMD ["./redis_populate.sh"]
 EXPOSE 6379
-CMD [ "redis-server" ]
