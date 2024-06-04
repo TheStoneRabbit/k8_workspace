@@ -1,7 +1,7 @@
 version: '3'
 services:
   redis:
-    image: redis-example-masonic
+    image: k8-masonic-db
     container_name: masonic-redis-db
     hostname: my-redis
     networks:
@@ -9,7 +9,7 @@ services:
 
 
   web:
-    image: k8-masonic-db
+    image: k8-masonic-webapp
     container_name: k8-masonic-webapp
     networks:
       - my_network

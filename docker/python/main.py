@@ -33,13 +33,14 @@ def fetch_records(start=0, count=100):
     records = r.mget(keys)
     return {key.decode('utf-8'): value.decode('utf-8') for key, value in zip(keys, records)}
 
-# test: curl -X POST localhost:8000/receive-data -H "Content-Type: application/json" -d '{"key": "mason:1", "values": { "date_of_birth": "07/18/2000","first_name": "Mason","middle_name": "Wynn", "last_name": "Lapine","gender": "male"}}'
+# test using: curl -X POST localhost:8000/receive-data -H "Content-Type: application/json" -d '{"key": "mason:1", "values": { "date_of_birth": "07/18/2000","first_name": "Mason","middle_name": "Wynn", "last_name": "Lapine","gender": "male"}}'
 
-@app.route("/receive-data", methods=['POST'])
-def receive_data():
+@app.route("/set-data", methods=['POST'])
+def set_data():
     data = request.get_json()
     try:
         r.hmset(data["key"], data["values"])
+        r.save()
         print(f"Received data with key: {data['key']}", flush=True)
         return "Data received and loaded successfully"
     except:

@@ -16,8 +16,10 @@ spec:
       hostname: my-redis
       containers:
       - name: redis
-        image: redis-example-masonic
+        image: k8-masonic-db
         imagePullPolicy: Never # Required for local deployment (not in Docker Hub)
+        ports:
+        - containerPort: 6379
         volumeMounts:
         - mountPath: /data
           name: redis-storage
