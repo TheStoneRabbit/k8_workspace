@@ -1,2 +1,16 @@
-# hello-python
-Very simple hello world python Flask application.
+# k8 Workspace
+
+Very simple redis python Flask application.
+
+
+
+## To run:
+
+clone then do the following
+
+`cd docker/python && docker build -f Dockerfile -t redis-example-masonic`
+
+
+`cd docker/redis && docker build -f Dockerfile -t k8-masonic-db .'
+
+`docker-compose up -d`
