@@ -15,10 +15,10 @@ def fetch_record_by_key(key):
     print(f"-> {key}", flush=True)
     field_names = r.hkeys(key)
     field_names_decoded = [field.decode('utf-8') for field in field_names]
-    end_values = []
+    end_values = {}
     for x in field_names_decoded:
         value = r.hget(key, x)
-        end_values.append(f"{x}: {value.decode('utf-8')}")
+        end_values[x] = value.decode('utf-8')
     print(f"result: {value}")
     if value:
         return end_values
@@ -33,7 +33,7 @@ def fetch_records(start=0, count=100):
     records = r.mget(keys)
     return {key.decode('utf-8'): value.decode('utf-8') for key, value in zip(keys, records)}
 
-# test using: curl -X POST localhost:8000/receive-data -H "Content-Type: application/json" -d '{"key": "mason:1", "values": { "date_of_birth": "07/18/2000","first_name": "Mason","middle_name": "Wynn", "last_name": "Lapine","gender": "male"}}'
+# test using: curl -X POST localhost:8000/set-data -H "Content-Type: application/json" -d '{"key": "mason:1", "values": { "date_of_birth": "07/18/2000","first_name": "Mason","middle_name": "Wynn", "last_name": "Lapine","gender": "male"}}'
 
 @app.route("/set-data", methods=['POST'])
 def set_data():
@@ -48,7 +48,8 @@ def set_data():
 
 @app.route("/")
 def root_page():
-    return "Welcome to the root of the masonic example"
+    test_curl = "curl -X POST localhost:8000/set-data -H \"Content-Type: application/json\" -d '{\"key\": \"mason:1\", \"values\": { \"date_of_birth\": \"07/18/2000\",\"first_name\": \"Mason\",\"middle_name\": \"Wynn\", \"last_name\": \"Lapine\",\"gender\": \"male\"}}'"
+    return f"Welcome to the root of the masonic k8 test suite.<br>  To get started you can query movies and actors by going to localhost:8000/get-data/actor:(some number) or localhost:8000/get-data/movie:(some number<br> To add records, direct your post requests to localhost:8000/set-data.<br>  Here is a test CURL Command: {test_curl}"
 
 @app.route("/get-data/<param>", methods=['GET'])
 def get_data(param: str):
