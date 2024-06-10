@@ -1,10 +1,10 @@
 import os
 import redis
-from flask import Flask
+import json
+from flask import Flask, render_template
 from flask import request
 
 app = Flask(__name__)
-
 redis_host = os.getenv('REDIS_HOST', 'localhost')
 redis_port = int(os.getenv('REDIS_PORT', 6379))
 
@@ -20,8 +20,9 @@ def fetch_record_by_key(key):
         value = r.hget(key, x)
         end_values[x] = value.decode('utf-8')
     print(f"result: {value}")
+    print(end_values)
     if value:
-        return end_values
+        return render_template("endpoint.html", record_for=key, data_returned=json.dumps(end_values))
     else:
         return ""
 
@@ -48,8 +49,7 @@ def set_data():
 
 @app.route("/")
 def root_page():
-    test_curl = "curl -X POST localhost:8000/set-data -H \"Content-Type: application/json\" -d '{\"key\": \"mason:1\", \"values\": { \"date_of_birth\": \"07/18/2000\",\"first_name\": \"Mason\",\"middle_name\": \"Wynn\", \"last_name\": \"Lapine\",\"gender\": \"male\"}}'"
-    return f"Welcome to the root of the masonic k8 test suite.<br>  To get started you can query movies and actors by going to localhost:8000/get-data/actor:(some number) or localhost:8000/get-data/movie:(some number<br> To add records, direct your post requests to localhost:8000/set-data.<br>  Here is a test CURL Command: {test_curl}"
+    return render_template("index.html")
 
 @app.route("/get-data/<param>", methods=['GET'])
 def get_data(param: str):
