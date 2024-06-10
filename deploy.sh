@@ -3,6 +3,7 @@ set -o xtrace
 # minikube start
 docker build -f docker/python/Dockerfile -t k8-masonic-webapp docker/python/
 docker build -f docker/redis/Dockerfile -t k8-masonic-db docker/redis/
+docker-compose up -d
 # eval $(minikube docker-env)
 # minikube image load k8-masonic-webapp
 # minikube image load k8-masonic-db
