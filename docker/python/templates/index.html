@@ -6,21 +6,29 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="text-center">K8 Testing Workspace</h1>
-        <p>
-            Welcome to the root of the masonic k8 test suite.
-        </p>
-        <p>
-            To get started you can query movies and actors by going to localhost:8000/get-data/actor:(some number) or localhost:8000/get-data/movie:(some number) To add records, direct your post requests to localhost:8000/set-data.
-        </p>
-        </p>
-        <p>Curl command to test writing to redis:</p>
-        <code>
+    <div class="container h-100">
+        <div class="container">
+            <div>
+                <h1 class="text-center mb-5">K8 Testing Workspace</h1>
+            </div>
+
+            <p>
+                Welcome to the root of the masonic k8 test suite.
+            </p>
+            <p>
+                To get started you can query movies and actors by going to localhost:8000/get-data/actor:(some number) or localhost:8000/get-data/movie:(some number) To add records, direct your post requests to localhost:8000/set-data.
+            </p>
+            </p>
+            <p>Curl command to test writing to redis:</p>
+            <code>
         curl -X POST localhost:8000/set-data -H "Content-Type: application/json" -d '{"key":
         "mason:1", "values": { "date_of_birth": "07/18/2000","first_name": "Mason","middle_name": "Wynn", "last_name":
         "Lapine","gender": "male"}}'
     </code>
+        </div>
+        <div class="text-center mt-5">
+            <img width="300px" height="auto" src="https://miro.medium.com/v2/resize:fit:600/1*Pbb5rmrwh-eAFWXd8ws79A.png" />
+        </div>
     </div>
 </body>
 
