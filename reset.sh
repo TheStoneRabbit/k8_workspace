@@ -1,3 +1,2 @@
 #!/bin/bash
-# minikube stop
-# minikube delete
+kubectl delete all --all --all-namespaces
