@@ -3,7 +3,6 @@ set -o xtrace
 # minikube start
 docker build -f docker/python/Dockerfile -t k8-masonic-webapp docker/python/
 docker build -f docker/redis/Dockerfile -t k8-masonic-db docker/redis/
-docker-compose up -d
 # eval $(minikube docker-env)
 # minikube image load k8-masonic-webapp
 # minikube image load k8-masonic-db
@@ -15,4 +14,6 @@ kubectl apply -f kubernetes/webapp-deployment.yaml
 # minikube tunnel
 # minikube stop
 # minikube delete
+kubectl rollout restart deployment -n masonic-app
+docker-compose up -d
 set +o xtrace

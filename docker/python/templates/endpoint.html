@@ -8,6 +8,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/highlight.min.js"></script>
 
     <style>
+        .code-block {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        body {
+            color: white;
+            background-color: grey;
+        }
+
         pre {
             white-space: pre-wrap;
             /* CSS3 */
@@ -44,7 +55,9 @@
             Record For <i>KEY</i>: <b>{{ record_for }}</b>
 
         </p>
-        <pre><code id="json-container" class="json" data-json='{{ data_returned|tojson }}'></code></pre>
+        <div class="code-block">
+            <pre><code id="json-container" class="json" data-json='{{ data_returned|tojson }}'></code></pre>
+        </div>
 
     </div>
 
